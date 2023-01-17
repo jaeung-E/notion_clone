@@ -1,7 +1,6 @@
 import { request } from "../utils/api.js";
 
 export default function Editor({ $target, initialState }) {
-  let $editor = null;
   let timer = null;
 
   this.state = initialState;
@@ -14,12 +13,12 @@ export default function Editor({ $target, initialState }) {
   this.render = () => {
     const { title, content } = this.state;
 
-    $editor.querySelector(".title").value = title;
-    $editor.querySelector(".content").value = content;
+    document.querySelector(".editor .title").value = title;
+    document.querySelector(".editor .content").value = content;
   };
 
   this.init = () => {
-    $editor = document.createElement("div");
+    const $editor = document.createElement("div");
     $editor.classList.add("editor");
     $target.appendChild($editor);
 
