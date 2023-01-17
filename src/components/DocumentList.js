@@ -118,6 +118,8 @@ export default function DocumentList({ $target, initialState }) {
       body: JSON.stringify(body),
     });
 
+    const documents = await request("/documents");
+    this.setState(documents);
     push(`/documents/${document.id}`);
   };
 
@@ -133,6 +135,8 @@ export default function DocumentList({ $target, initialState }) {
       updateStorage(OPEN_DOCUMENT_LIST, openList);
     }
 
+    const documents = await request("/documents");
+    this.setState(documents);
     push(`/`);
   };
 
@@ -147,4 +151,6 @@ export default function DocumentList({ $target, initialState }) {
 
     push(`/documents/${document.id}`);
   };
+
+  this.render();
 }

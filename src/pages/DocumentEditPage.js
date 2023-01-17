@@ -1,35 +1,25 @@
-import Editor from '../components/Editor.js';
-import DocumentList from '../components/DocumentList.js';
-import { request } from '../utils/api.js';
+import Editor from "../components/Editor.js";
+import { request } from "../utils/api.js";
 
 export default function DocumentEditPage({ $target, initialState }) {
-  const $page = document.createElement('div');
-  $page.classList.add('page-container');
-  
   this.state = initialState;
 
   this.setState = async (nextState) => {
-    const documents = await request(`/documents`);
-    const document = await request(`/documents/${nextState.documentId}`);
-    documentList.setState(documents);
-    editor.setState(document);
-    this.render();
+    this.state = nextState;
+
+    const { id, title, content } = await request(
+      `/documents/${this.state.documentId}`
+    );
+
+    editor.init();
+    editor.setState({ id, title, content });
   };
 
-  const documentList = new DocumentList({
-    $target: $page,
-    initialState: []
-  });
-
-  const editor = new Editor({ 
-    $target: $page,
+  const editor = new Editor({
+    $target,
     initialState: {
-      title: '',
-      content: '',
-    } 
+      title: "",
+      content: "",
+    },
   });
-
-  this.render = () => {
-    $target.appendChild($page);
-  }
 }
