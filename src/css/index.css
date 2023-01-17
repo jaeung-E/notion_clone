@@ -31,6 +31,14 @@ ul {
   cursor: pointer;
 }
 
+.button-container:hover .button-box {
+  display: block;
+}
+
+.button-box {
+  display: none;
+}
+
 .button {
   background-color: rgba(245, 222, 179, 0);
   border: none;

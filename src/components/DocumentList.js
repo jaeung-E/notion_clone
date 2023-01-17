@@ -31,8 +31,10 @@ export default function DocumentList({ $target, initialState }) {
               isOpened ? "▼" : "▶"
             }</button>
             <span class="document-title">${title}</span>
-            <button class="remove-button button "type="button">✖</button>
-            <button class="add-child-button button "type="button">✚</button>
+            <div class="button-box">
+              <button class="remove-button button "type="button">✖</button>
+              <button class="add-child-button button "type="button">✚</button>
+            </div>
           </div>
           ${
             documents.length > 0
