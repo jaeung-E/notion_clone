@@ -7,12 +7,16 @@ export default function DocumentEditPage({ $target, initialState }) {
   this.setState = async (nextState) => {
     this.state = nextState;
 
-    const { id, title, content } = await request(
-      `/documents/${this.state.documentId}`
-    );
+    try {
+      const { id, title, content } = await request(
+        `/documents/${this.state.documentId}`
+      );
 
-    editor.init();
-    editor.setState({ id, title, content });
+      editor.init();
+      editor.setState({ id, title, content });
+    } catch (e) {
+      this.render();
+    }
   };
 
   const editor = new Editor({
@@ -22,4 +26,10 @@ export default function DocumentEditPage({ $target, initialState }) {
       content: "",
     },
   });
+
+  this.render = () => {
+    $target.innerHTML = `
+      <h1>해당 문서는 존재하지 않는 문서입니다!</h1>
+    `;
+  };
 }
