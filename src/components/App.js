@@ -44,6 +44,7 @@ export default function App({ $target }) {
     }
   };
 
+  this.route();
   initRouter(() => this.route());
 
   const getList = async () => {
