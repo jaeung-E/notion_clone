@@ -34,7 +34,6 @@ export default function App({ $target }) {
   this.route = async () => {
     const { pathname } = window.location;
     $pageContainer.innerHTML = "";
-    documentList.setState(await getDocumentList());
 
     if (pathname === "/") {
       rootPage.render();
@@ -46,4 +45,7 @@ export default function App({ $target }) {
 
   this.route();
   initRouter(() => this.route());
+  (async () => {
+    documentList.setState(await getDocumentList());
+  })();
 }
