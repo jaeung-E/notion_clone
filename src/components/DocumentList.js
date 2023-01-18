@@ -1,7 +1,9 @@
 import { getStorage, updateStorage } from "../utils/storage.js";
-import { request } from "../utils/api.js";
 import { push } from "../utils/router.js";
 import { OPEN_DOCUMENT_LIST } from "../constants/storageKey.js";
+import { getDocumentList } from "../api/getDocumentList.js";
+import { createDocument } from "../api/createDocument.js";
+import { deleteDocument } from "../api/deleteDocument.js";
 
 export default function DocumentList({ $target, initialState }) {
   const $list = document.createElement("div");
@@ -104,48 +106,31 @@ export default function DocumentList({ $target, initialState }) {
   };
 
   const addChildEvent = async ({ $root }) => {
-    const body = {
-      title: "제목 없음",
-      parent: parseInt($root.dataset.id),
-    };
+    const { id } = await createDocument($root.dataset.id);
 
-    const document = await request(`/documents`, {
-      method: "POST",
-      body: JSON.stringify(body),
-    });
-
-    const documents = await request("/documents");
-    this.setState(documents);
-    push(`/documents/${document.id}`);
+    this.setState(await getDocumentList());
+    push(`/documents/${id}`);
   };
 
   const removeEvent = async ({ $root, openList }) => {
-    const idIndex = openList.indexOf($root.dataset.id);
-
-    await request(`/documents/${$root.dataset.id}`, {
-      method: "DELETE",
-    });
+    const { id } = $root.dataset;
+    const idIndex = openList.indexOf(id);
+    await deleteDocument(id);
 
     if (idIndex >= 0) {
       openList.splice(idIndex, 1);
       updateStorage(OPEN_DOCUMENT_LIST, openList);
     }
 
-    const documents = await request("/documents");
-    this.setState(documents);
+    this.setState(await getDocumentList());
     push(`/`);
   };
 
   const addRootEvent = async () => {
-    const document = await request(`/documents`, {
-      method: "POST",
-      body: JSON.stringify({
-        title: "제목 없음",
-        parent: null,
-      }),
-    });
+    const { id } = await createDocument();
 
-    push(`/documents/${document.id}`);
+    this.setState(await getDocumentList());
+    push(`/documents/${id}`);
   };
 
   this.render();

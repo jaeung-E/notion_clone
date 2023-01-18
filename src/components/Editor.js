@@ -1,4 +1,4 @@
-import { request } from "../utils/api.js";
+import { updateDocument } from "../api/updateDocument.js";
 
 export default function Editor({ $target, initialState }) {
   let timer = null;
@@ -49,14 +49,7 @@ export default function Editor({ $target, initialState }) {
         };
 
         this.setState(nextState);
-        await request(`/documents/${this.state.id}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            title:
-              this.state.title.trim() !== "" ? this.state.title : "제목 없음",
-            content: this.state.content,
-          }),
-        });
+        await updateDocument(this.state);
       }, 500);
     });
   };

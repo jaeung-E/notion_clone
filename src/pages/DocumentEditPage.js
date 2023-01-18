@@ -1,5 +1,5 @@
 import Editor from "../components/Editor.js";
-import { request } from "../utils/api.js";
+import { request } from "../utils/request.js";
 
 export default function DocumentEditPage({ $target, initialState }) {
   this.state = initialState;
@@ -22,6 +22,7 @@ export default function DocumentEditPage({ $target, initialState }) {
   const editor = new Editor({
     $target,
     initialState: {
+      id: "",
       title: "",
       content: "",
     },

@@ -2,7 +2,7 @@ import RootPage from "../pages/RootPage.js";
 import DocumentEditPage from "../pages/DocumentEditPage.js";
 import { initRouter } from "../utils/router.js";
 import DocumentList from "../components/DocumentList.js";
-import { request } from "../utils/api.js";
+import { getDocumentList } from "../api/getDocumentList.js";
 
 export default function App({ $target }) {
   const $appContainer = document.createElement("div");
@@ -31,10 +31,10 @@ export default function App({ $target }) {
     },
   });
 
-  this.route = () => {
-    $pageContainer.innerHTML = "";
-
+  this.route = async () => {
     const { pathname } = window.location;
+    $pageContainer.innerHTML = "";
+    documentList.setState(await getDocumentList());
 
     if (pathname === "/") {
       rootPage.render();
@@ -46,11 +46,4 @@ export default function App({ $target }) {
 
   this.route();
   initRouter(() => this.route());
-
-  const getList = async () => {
-    const documents = await request("/documents");
-    documentList.setState(documents);
-  };
-
-  getList();
 }
