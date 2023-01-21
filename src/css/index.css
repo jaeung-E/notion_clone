@@ -60,7 +60,7 @@ ul {
 }
 
 .editor {
-  width: 85%;
+  width: 100%;
   display: flex;
   justify-content: center;
 }
