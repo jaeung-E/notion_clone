@@ -19,16 +19,14 @@ export default function Editor({ $target, initialState }) {
 
   this.init = () => {
     const $editor = document.createElement("div");
-    $editor.classList.add("editor");
+    $editor.classList.add("editor-container");
     $target.appendChild($editor);
 
     $editor.innerHTML = `
-      <div class="input-container">
-        <div class="editor-title">
-          <input type="text" placeholder="제목을 입력해 주세요"/>
-        </div>
-        <textarea class="editor-content" placeholder="내용을 입력해 주세요"></textarea> 
+      <div class="editor-title">
+        <input type="text" placeholder="제목을 입력해 주세요"/>
       </div>
+      <textarea class="editor-content" placeholder="내용을 입력해 주세요"></textarea> 
     `;
 
     $editor.addEventListener("keyup", () => {

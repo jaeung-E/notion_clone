@@ -15,7 +15,7 @@ export default function ChildLink({ $target, initialState }) {
       ${this.state
         .map(({ id, title }) => {
           return `
-          <div class='link-container' data-id='${id}'>
+          <div class='link-wrapper' data-id='${id}'>
             <a href='/documents/${id}'>
               <div class='focusable'>
                 <div>${title}</div>
@@ -35,7 +35,7 @@ export default function ChildLink({ $target, initialState }) {
 
     $childList.addEventListener("click", (e) => {
       e.preventDefault();
-      const { id } = e.target.closest(".link-container").dataset;
+      const { id } = e.target.closest(".link-wrapper").dataset;
       push(`/documents/${id}`);
     });
   };

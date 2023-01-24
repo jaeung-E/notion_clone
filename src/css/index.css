@@ -11,10 +11,16 @@ ul {
   height: 100%;
 }
 
+.page-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 60%;
   height: 100%;
 }
 
@@ -60,16 +66,10 @@ ul {
   right: 0px;
 }
 
-.editor {
+.editor-container {
   width: 100%;
   display: flex;
-  justify-content: center;
-}
-
-.input-container {
-  display: flex;
   flex-direction: column;
-  width: 60%;
 }
 
 .editor-content,
@@ -117,14 +117,9 @@ ul {
 .child-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.link-container {
-  width: 60%;
-}
-
-.link-container :hover {
+.link-wrapper :hover {
   background-color: rgba(218, 218, 218, 0.384);
 }
 

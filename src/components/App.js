@@ -14,9 +14,12 @@ export default function App({ $target }) {
     initialState: [],
   });
 
+  const $pageWrapper = document.createElement("div");
   const $pageContainer = document.createElement("div");
+  $pageWrapper.classList.add("page-wrapper");
   $pageContainer.classList.add("page-container");
-  $appContainer.appendChild($pageContainer);
+  $pageWrapper.appendChild($pageContainer);
+  $appContainer.appendChild($pageWrapper);
 
   const rootPage = new RootPage({ $target: $pageContainer });
 
