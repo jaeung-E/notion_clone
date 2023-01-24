@@ -13,8 +13,8 @@ export default function Editor({ $target, initialState }) {
   this.render = () => {
     const { title, content } = this.state;
 
-    document.querySelector(".editor .title").value = title;
-    document.querySelector(".editor .content").value = content;
+    document.querySelector(".editor-title input").value = title;
+    document.querySelector(".editor-content").value = content;
   };
 
   this.init = () => {
@@ -24,8 +24,10 @@ export default function Editor({ $target, initialState }) {
 
     $editor.innerHTML = `
       <div class="input-container">
-        <input class="title" type="text" placeholder="제목을 입력해 주세요"/>
-        <textarea class="content" placeholder="내용을 입력해 주세요"></textarea> 
+        <div class="editor-title">
+          <input type="text" placeholder="제목을 입력해 주세요"/>
+        </div>
+        <textarea class="editor-content" placeholder="내용을 입력해 주세요"></textarea> 
       </div>
     `;
 
@@ -33,8 +35,8 @@ export default function Editor({ $target, initialState }) {
       const documentTitle = document.querySelector(
         `li[data-id='${this.state.id}'] span`
       );
-      const titleValue = document.querySelector(".title").value;
-      const contentValue = document.querySelector(".content").value;
+      const titleValue = document.querySelector(".editor-title input").value;
+      const contentValue = document.querySelector(".editor-content").value;
       documentTitle.textContent = titleValue;
 
       if (timer) {
