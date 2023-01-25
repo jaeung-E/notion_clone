@@ -18,6 +18,8 @@ export default function DocumentList({ $target, initialState }) {
   };
 
   const parseHTML = (documentList) => {
+    const { selectedId } = this.state;
+
     return documentList
       .map((document) => {
         const { id, title, documents } = document;
@@ -26,7 +28,9 @@ export default function DocumentList({ $target, initialState }) {
 
         return `
         <li class="root-document" data-id="${id}">
-          <div class="button-container">
+          <div class="button-container ${
+            id === Number(selectedId) ? "selected" : ""
+          }">
             <button class="open-button button"type="button">${
               isOpened ? "▼" : "▶"
             }</button>
@@ -52,7 +56,7 @@ export default function DocumentList({ $target, initialState }) {
 
   this.render = () => {
     $list.innerHTML = `
-    ${parseHTML(this.state)}
+    ${parseHTML(this.state.documents)}
     <button class='add-root-button button' type='button'>새로운 페이지 추가</button>
     `;
   };

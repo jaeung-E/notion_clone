@@ -11,7 +11,10 @@ export default function App({ $target }) {
 
   const documentList = new DocumentList({
     $target: $appContainer,
-    initialState: [],
+    initialState: {
+      documents: [],
+      selectedId: 0,
+    },
   });
 
   const $pageWrapper = document.createElement("div");
@@ -43,12 +46,16 @@ export default function App({ $target }) {
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , documentId] = pathname.split("/");
       documentEditPage.setState({ documentId: documentId });
+      documentList.setState({ ...documentList.state, selectedId: documentId });
     }
   };
 
   this.route();
   initRouter(() => this.route());
   (async () => {
-    documentList.setState(await getDocumentList());
+    documentList.setState({
+      ...documentList.state,
+      documents: await getDocumentList(),
+    });
   })();
 }
