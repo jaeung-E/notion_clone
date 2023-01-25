@@ -1,6 +1,4 @@
-import { updateDocument } from "../api/updateDocument.js";
-
-export default function Editor({ $target, initialState }) {
+export default function Editor({ $target, initialState, onEdit }) {
   let timer = null;
 
   this.state = initialState;
@@ -33,23 +31,16 @@ export default function Editor({ $target, initialState }) {
       const documentTitle = document.querySelector(
         `li[data-id='${this.state.id}'] span`
       );
-      const titleValue = document.querySelector(".editor-title input").value;
-      const contentValue = document.querySelector(".editor-content").value;
-      documentTitle.textContent = titleValue;
+      const title = document.querySelector(".editor-title input").value;
+      const content = document.querySelector(".editor-content").value;
+      documentTitle.textContent = title;
 
       if (timer) {
         clearTimeout(timer);
       }
 
       timer = setTimeout(async () => {
-        const nextState = {
-          ...this.state,
-          title: titleValue,
-          content: contentValue,
-        };
-
-        this.setState(nextState);
-        await updateDocument(this.state);
+        onEdit({ id: this.state.id, title, content });
       }, 500);
     });
   };

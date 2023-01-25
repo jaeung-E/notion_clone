@@ -2,7 +2,7 @@ import ChildLink from "../components/ChildLink.js";
 import Editor from "../components/Editor.js";
 import { request } from "../utils/request.js";
 
-export default function DocumentEditPage({ $target, initialState }) {
+export default function DocumentEditPage({ $target, initialState, onEdit }) {
   this.state = initialState;
 
   this.setState = async (nextState) => {
@@ -29,6 +29,7 @@ export default function DocumentEditPage({ $target, initialState }) {
       title: "",
       content: "",
     },
+    onEdit,
   });
 
   const childLink = new ChildLink({

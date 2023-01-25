@@ -3,6 +3,7 @@ import DocumentEditPage from "../pages/DocumentEditPage.js";
 import { initRouter } from "../utils/router.js";
 import DocumentList from "../components/DocumentList.js";
 import { getDocumentList } from "../api/getDocumentList.js";
+import { updateDocument } from "../api/updateDocument.js";
 
 export default function App({ $target }) {
   const $appContainer = document.createElement("div");
@@ -30,10 +31,13 @@ export default function App({ $target }) {
     $target: $pageContainer,
     initialState: {
       documentId: 0,
-      document: {
-        title: "",
-        content: "",
-      },
+    },
+    onEdit: async ({ id, title, content }) => {
+      await updateDocument({ id, title, content });
+      documentList.setState({
+        ...documentList.state,
+        documents: await getDocumentList(),
+      });
     },
   });
 
