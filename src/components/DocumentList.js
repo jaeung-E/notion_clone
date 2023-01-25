@@ -112,7 +112,7 @@ export default function DocumentList({ $target, initialState }) {
   const addChildEvent = async ({ $root }) => {
     const { id } = await createDocument($root.dataset.id);
 
-    this.setState(await getDocumentList());
+    this.setState({ documents: await getDocumentList(), selectedId: id });
     push(`/documents/${id}`);
   };
 
@@ -126,14 +126,14 @@ export default function DocumentList({ $target, initialState }) {
       updateStorage(OPEN_DOCUMENT_LIST, openList);
     }
 
-    this.setState(await getDocumentList());
+    this.setState({ documents: await getDocumentList(), selectedId: 0 });
     push(`/`);
   };
 
   const addRootEvent = async () => {
     const { id } = await createDocument();
 
-    this.setState(await getDocumentList());
+    this.setState({ documents: await getDocumentList(), selectedId: id });
     push(`/documents/${id}`);
   };
 
