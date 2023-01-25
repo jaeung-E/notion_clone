@@ -61,40 +61,36 @@ export default function DocumentList({ $target, initialState }) {
     `;
   };
 
-  const addEvent = () => {
-    $list.addEventListener("click", async (e) => {
-      const $root = e.target.closest(".root-document");
-      const $ul = $root ? $root.querySelector("ul") : "";
-      const openList = getStorage(OPEN_DOCUMENT_LIST, []);
-      const targetClassList = e.target.classList;
+  $list.addEventListener("click", async (e) => {
+    const $root = e.target.closest(".root-document");
+    const $ul = $root ? $root.querySelector("ul") : "";
+    const openList = getStorage(OPEN_DOCUMENT_LIST, []);
+    const targetClassList = e.target.classList;
 
-      if (e.target.className === "document-title") {
-        push(`/documents/${$root.dataset.id}`);
-      }
+    if (e.target.className === "document-title") {
+      push(`/documents/${$root.dataset.id}`);
+    }
 
-      if (targetClassList.contains("open-button")) {
+    if (targetClassList.contains("open-button")) {
+      openEvent({ $root, $ul, openList, e });
+    }
+
+    if (targetClassList.contains("add-child-button")) {
+      addChildEvent({ $root });
+
+      if ($ul.classList.contains("hidden")) {
         openEvent({ $root, $ul, openList, e });
       }
+    }
 
-      if (targetClassList.contains("add-child-button")) {
-        addChildEvent({ $root });
+    if (targetClassList.contains("remove-button")) {
+      removeEvent({ $root, openList });
+    }
 
-        if ($ul.classList.contains("hidden")) {
-          openEvent({ $root, $ul, openList, e });
-        }
-      }
-
-      if (targetClassList.contains("remove-button")) {
-        removeEvent({ $root, openList });
-      }
-
-      if (targetClassList.contains("add-root-button")) {
-        addRootEvent();
-      }
-    });
-  };
-
-  addEvent();
+    if (targetClassList.contains("add-root-button")) {
+      addRootEvent();
+    }
+  });
 
   const openEvent = ({ $root, $ul, openList, e }) => {
     if ($ul.classList.contains("hidden")) {
