@@ -1,5 +1,6 @@
 import ChildLink from "../components/ChildLink.js";
 import Editor from "../components/Editor.js";
+import Spinner from "../components/Spinner.js";
 import { request } from "../utils/request.js";
 
 export default function DocumentEditPage({ $target, initialState, onEdit }) {
@@ -13,6 +14,7 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
         `/documents/${this.state.documentId}`
       );
 
+      spinner.init();
       editor.init(id);
       childLink.init();
       editor.setState({ id, title, content });
@@ -22,6 +24,13 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
     }
   };
 
+  const spinner = new Spinner({
+    $target,
+    initialState: {
+      isLoading: false,
+    },
+  });
+
   const editor = new Editor({
     $target,
     initialState: {
@@ -30,6 +39,7 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
       content: "",
     },
     onEdit,
+    spinner,
   });
 
   const childLink = new ChildLink({

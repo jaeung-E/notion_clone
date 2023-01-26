@@ -1,4 +1,4 @@
-export default function Editor({ $target, initialState, onEdit }) {
+export default function Editor({ $target, initialState, onEdit, spinner }) {
   let timer = null;
 
   this.state = initialState;
@@ -28,6 +28,8 @@ export default function Editor({ $target, initialState, onEdit }) {
     `;
 
     $editor.addEventListener("keyup", (e) => {
+      spinner.setState({ isLoading: true });
+
       if (timer) {
         clearTimeout(timer);
       }
@@ -52,6 +54,7 @@ export default function Editor({ $target, initialState, onEdit }) {
       timer = setTimeout(async () => {
         const { id, title, content } = this.state;
         onEdit({ id, title, content });
+        spinner.setState({ isLoading: false });
       }, 500);
     });
 
