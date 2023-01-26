@@ -15,7 +15,7 @@ export default function Editor({ $target, initialState, onEdit }) {
     document.querySelector(".editor-content").value = content;
   };
 
-  this.init = () => {
+  this.init = (id) => {
     const $editor = document.createElement("div");
     $editor.classList.add("editor-container");
     $target.appendChild($editor);
@@ -27,20 +27,31 @@ export default function Editor({ $target, initialState, onEdit }) {
       <textarea class="editor-content" placeholder="내용을 입력해 주세요"></textarea> 
     `;
 
-    $editor.addEventListener("keyup", () => {
-      const documentTitle = document.querySelector(
-        `li[data-id='${this.state.id}'] span`
-      );
-      const title = document.querySelector(".editor-title input").value;
-      const content = document.querySelector(".editor-content").value;
-      documentTitle.textContent = title;
-
+    $editor.addEventListener("keyup", (e) => {
       if (timer) {
         clearTimeout(timer);
       }
 
+      const isTitle = e.target
+        .closest("div")
+        .classList.contains("editor-title");
+      const isContent = e.target.classList.contains("editor-content");
+
+      if (isTitle) {
+        const $documentTitle = document.querySelector(
+          `li[data-id='${id}'] span`
+        );
+        this.setState({ ...this.state, title: e.target.value });
+        $documentTitle.textContent = this.state.title;
+      }
+
+      if (isContent) {
+        this.setState({ ...this.state, content: e.target.value });
+      }
+
       timer = setTimeout(async () => {
-        onEdit({ id: this.state.id, title, content });
+        const { id, title, content } = this.state;
+        onEdit({ id, title, content });
       }, 500);
     });
   };

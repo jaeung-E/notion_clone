@@ -13,7 +13,7 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
         `/documents/${this.state.documentId}`
       );
 
-      editor.init();
+      editor.init(id);
       childLink.init();
       editor.setState({ id, title, content });
       childLink.setState(documents);
