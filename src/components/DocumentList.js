@@ -61,9 +61,8 @@ export default function DocumentList({ $target, initialState }) {
     `;
   };
 
-  $list.addEventListener("click", async (e) => {
+  $list.addEventListener("click", (e) => {
     const $root = e.target.closest(".root-document");
-    const $ul = $root ? $root.querySelector("ul") : "";
     const openList = getStorage(OPEN_DOCUMENT_LIST, []);
     const targetClassList = e.target.classList;
 
@@ -72,15 +71,11 @@ export default function DocumentList({ $target, initialState }) {
     }
 
     if (targetClassList.contains("open-button")) {
-      openEvent({ $root, $ul, openList, e });
+      openEvent({ $root, openList, e });
     }
 
     if (targetClassList.contains("add-child-button")) {
-      addChildEvent({ $root });
-
-      if ($ul.classList.contains("hidden")) {
-        openEvent({ $root, $ul, openList, e });
-      }
+      addChildEvent({ $root, openList, e });
     }
 
     if (targetClassList.contains("remove-button")) {
@@ -92,7 +87,9 @@ export default function DocumentList({ $target, initialState }) {
     }
   });
 
-  const openEvent = ({ $root, $ul, openList, e }) => {
+  const openEvent = ({ $root, openList, e }) => {
+    const $ul = $root.querySelector("ul");
+
     if ($ul.classList.contains("hidden")) {
       e.target.innerHTML = "▼";
       updateStorage(OPEN_DOCUMENT_LIST, [...openList, $root.dataset.id]);
@@ -105,10 +102,12 @@ export default function DocumentList({ $target, initialState }) {
     $ul.classList.toggle("hidden");
   };
 
-  const addChildEvent = async ({ $root }) => {
+  const addChildEvent = async ({ $root, openList, e }) => {
     const { id } = await createDocument($root.dataset.id);
+    const $ul = $root.querySelector("ul");
 
     this.setState({ documents: await getDocumentList(), selectedId: id });
+    if ($ul.classList.contains("hidden")) openEvent({ $root, openList, e });
     push(`/documents/${id}`);
   };
 
