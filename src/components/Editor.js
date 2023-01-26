@@ -69,6 +69,7 @@ export default function Editor({ $target, initialState, onEdit, spinner }) {
         clearTimeout(timer);
         timer = null;
         onEdit({ id, title, content });
+        spinner.setState({ isLoading: false });
       }
     });
   };

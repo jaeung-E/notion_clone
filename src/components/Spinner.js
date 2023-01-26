@@ -8,9 +8,10 @@ export default function Spinner({ $target, initialState }) {
 
   this.render = (beforeState) => {
     const { isLoading } = this.state;
+    const $ring = document.querySelector(".lds-ring");
 
-    if (isLoading !== beforeState) {
-      document.querySelector(".lds-ring").classList.toggle("hidden");
+    if (isLoading !== beforeState && $ring) {
+      $ring.classList.toggle("hidden");
     }
   };
 
