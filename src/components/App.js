@@ -1,7 +1,6 @@
 import RootPage from "../pages/RootPage.js";
 import DocumentEditPage from "../pages/DocumentEditPage.js";
 import { initRouter } from "../utils/router.js";
-import DocumentList from "../components/DocumentList.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { updateDocument } from "../api/updateDocument.js";
 import Sidebar from "./SideBar.js";
