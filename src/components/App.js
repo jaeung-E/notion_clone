@@ -4,13 +4,14 @@ import { initRouter } from "../utils/router.js";
 import DocumentList from "../components/DocumentList.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { updateDocument } from "../api/updateDocument.js";
+import Sidebar from "./SideBar.js";
 
 export default function App({ $target }) {
   const $appContainer = document.createElement("div");
   $appContainer.classList.add("app-container");
   $target.appendChild($appContainer);
 
-  const documentList = new DocumentList({
+  const sidebar = new Sidebar({
     $target: $appContainer,
     initialState: {
       documents: [],
@@ -34,8 +35,8 @@ export default function App({ $target }) {
     },
     onEdit: async ({ id, title, content }) => {
       await updateDocument({ id, title, content });
-      documentList.setState({
-        ...documentList.state,
+      sidebar.setState({
+        ...sidebar.state,
         documents: await getDocumentList(),
       });
     },
@@ -50,15 +51,15 @@ export default function App({ $target }) {
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , documentId] = pathname.split("/");
       documentEditPage.setState({ documentId: documentId });
-      documentList.setState({ ...documentList.state, selectedId: documentId });
+      sidebar.setState({ ...sidebar.state, selectedId: documentId });
     }
   };
 
   this.route();
   initRouter(() => this.route());
   (async () => {
-    documentList.setState({
-      ...documentList.state,
+    sidebar.setState({
+      ...sidebar.state,
       documents: await getDocumentList(),
     });
   })();
