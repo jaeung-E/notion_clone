@@ -1,11 +1,15 @@
-import { getStorage, updateStorage } from "../utils/storage.js";
-import { push } from "../utils/router.js";
-import { OPEN_DOCUMENT_LIST } from "../constants/storageKey.js";
-import { getDocumentList } from "../api/getDocumentList.js";
-import { createDocument } from "../api/createDocument.js";
-import { deleteDocument } from "../api/deleteDocument.js";
+import { OPEN_DOCUMENT_LIST } from "../constants/storageKey";
+import { push } from "../utils/router";
+import { getStorage } from "../utils/storage";
 
-export default function DocumentList({ $target, initialState }) {
+export default function DocumentList({
+  $target,
+  initialState,
+  onOpen,
+  onAddRoot,
+  onAddChild,
+  onRemove,
+}) {
   const $list = document.createElement("div");
   $list.classList.add("document-list");
   $target.appendChild($list);
@@ -71,66 +75,21 @@ export default function DocumentList({ $target, initialState }) {
     }
 
     if (targetClassList.contains("open-button")) {
-      openEvent({ $root, openList, e });
+      onOpen({ $root, openList, e });
     }
 
     if (targetClassList.contains("add-child-button")) {
-      addChildEvent({ $root, openList, e });
+      onAddChild({ $root, openList, e });
     }
 
     if (targetClassList.contains("remove-button")) {
-      removeEvent({ $root, openList });
+      onRemove({ $root, openList });
     }
 
     if (targetClassList.contains("add-root-button")) {
-      addRootEvent();
+      onAddRoot();
     }
   });
-
-  const openEvent = ({ $root, openList, e }) => {
-    const $ul = $root.querySelector("ul");
-
-    if ($ul.classList.contains("hidden")) {
-      e.target.innerHTML = "▼";
-      updateStorage(OPEN_DOCUMENT_LIST, [...openList, $root.dataset.id]);
-    } else {
-      e.target.innerHTML = "▶";
-      openList.splice(openList.indexOf($root.dataset.id), 1);
-      updateStorage(OPEN_DOCUMENT_LIST, openList);
-    }
-
-    $ul.classList.toggle("hidden");
-  };
-
-  const addChildEvent = async ({ $root, openList, e }) => {
-    const { id } = await createDocument($root.dataset.id);
-    const $ul = $root.querySelector("ul");
-
-    this.setState({ documents: await getDocumentList(), selectedId: id });
-    if ($ul.classList.contains("hidden")) openEvent({ $root, openList, e });
-    push(`/documents/${id}`);
-  };
-
-  const removeEvent = async ({ $root, openList }) => {
-    const { id } = $root.dataset;
-    const idIndex = openList.indexOf(id);
-    await deleteDocument(id);
-
-    if (idIndex >= 0) {
-      openList.splice(idIndex, 1);
-      updateStorage(OPEN_DOCUMENT_LIST, openList);
-    }
-
-    this.setState({ documents: await getDocumentList(), selectedId: 0 });
-    push(`/`);
-  };
-
-  const addRootEvent = async () => {
-    const { id } = await createDocument();
-
-    this.setState({ documents: await getDocumentList(), selectedId: id });
-    push(`/documents/${id}`);
-  };
 
   this.render();
 }
