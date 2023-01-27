@@ -6,7 +6,6 @@ export default function DocumentList({
   $target,
   initialState,
   onOpen,
-  onAddRoot,
   onAddChild,
   onRemove,
 }) {
@@ -60,8 +59,7 @@ export default function DocumentList({
 
   this.render = () => {
     $list.innerHTML = `
-    ${parseHTML(this.state.documents)}
-    <button class='add-root-button button' type='button'>새로운 페이지 추가</button>
+      ${parseHTML(this.state.documents)}
     `;
   };
 
@@ -84,10 +82,6 @@ export default function DocumentList({
 
     if (targetClassList.contains("remove-button")) {
       onRemove({ $root, openList });
-    }
-
-    if (targetClassList.contains("add-root-button")) {
-      onAddRoot();
     }
   });
 

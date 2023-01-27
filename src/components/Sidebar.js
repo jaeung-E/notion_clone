@@ -6,6 +6,7 @@ import { OPEN_DOCUMENT_LIST } from "../constants/storageKey.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { createDocument } from "../api/createDocument.js";
 import { deleteDocument } from "../api/deleteDocument.js";
+import Button from "./Button";
 
 export default function Sidebar({ $target, initialState }) {
   const $sidebar = document.createElement("div");
@@ -30,12 +31,6 @@ export default function Sidebar({ $target, initialState }) {
     onOpen: ({ $root, openList, e }) => {
       handleOpen({ $root, openList, e });
     },
-    onAddRoot: async () => {
-      const { id } = await createDocument();
-
-      this.setState({ documents: await getDocumentList(), selectedId: id });
-      push(`/documents/${id}`);
-    },
     onAddChild: async ({ $root, openList, e }) => {
       const { id } = await createDocument($root.dataset.id);
       const $ul = $root.querySelector("ul");
@@ -56,6 +51,18 @@ export default function Sidebar({ $target, initialState }) {
 
       this.setState({ documents: await getDocumentList(), selectedId: 0 });
       push(`/`);
+    },
+  });
+
+  const addRootButton = new Button({
+    $target: $sidebar,
+    content: "새 페이지",
+    classes: ["add-root-button"],
+    onClick: async () => {
+      const { id } = await createDocument();
+
+      this.setState({ documents: await getDocumentList(), selectedId: id });
+      push(`/documents/${id}`);
     },
   });
 
