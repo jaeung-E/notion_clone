@@ -7,6 +7,7 @@ import { getDocumentList } from "../api/getDocumentList.js";
 import { createDocument } from "../api/createDocument.js";
 import { deleteDocument } from "../api/deleteDocument.js";
 import Button from "./Button";
+import Resizer from "./Resizer";
 
 export default function Sidebar({ $target, initialState }) {
   const $sidebar = document.createElement("div");
@@ -64,6 +65,11 @@ export default function Sidebar({ $target, initialState }) {
       this.setState({ documents: await getDocumentList(), selectedId: id });
       push(`/documents/${id}`);
     },
+  });
+
+  const resizer = new Resizer({
+    $target: $sidebar,
+    $resizeElement: $sidebar,
   });
 
   const handleOpen = ({ $root, openList, e }) => {

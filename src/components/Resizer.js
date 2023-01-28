@@ -21,7 +21,10 @@ export default function Resizer({ $target, $resizeElement }) {
 
   const handleMouseMove = (e) => {
     const moveX = e.clientX - x;
+
     $resizeElement.style.width = `${width + moveX}px`;
+    $resizeElement.nextElementSibling.style.marginLeft =
+      getWidth($resizeElement);
   };
 
   const getWidth = (element) => {
