@@ -15,7 +15,7 @@ export default function Editor({ $target, initialState, onEdit, spinner }) {
     document.querySelector(".editor-content").value = content;
   };
 
-  this.init = (id) => {
+  this.init = () => {
     const $editor = document.createElement("div");
     $editor.classList.add("editor-container");
     $target.appendChild($editor);
@@ -28,6 +28,7 @@ export default function Editor({ $target, initialState, onEdit, spinner }) {
     `;
 
     $editor.addEventListener("keyup", (e) => {
+      const { id } = this.state;
       spinner.setState({ isLoading: true });
 
       if (timer) {

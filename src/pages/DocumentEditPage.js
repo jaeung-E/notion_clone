@@ -15,7 +15,7 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
       );
 
       spinner.init();
-      editor.init(id);
+      editor.init();
       childLink.init();
       editor.setState({ id, title, content });
       childLink.setState(documents);
