@@ -1,7 +1,7 @@
+import { getDocument } from "../api/getDocument.js";
 import ChildLink from "../components/ChildLink.js";
 import Editor from "../components/Editor.js";
 import Spinner from "../components/Spinner.js";
-import { request } from "../utils/request.js";
 
 export default function DocumentEditPage({ $target, initialState, onEdit }) {
   this.state = initialState;
@@ -10,8 +10,8 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
     this.state = nextState;
 
     try {
-      const { id, title, content, documents } = await request(
-        `/documents/${this.state.documentId}`
+      const { id, title, content, documents } = await getDocument(
+        this.state.documentId
       );
 
       spinner.init();
