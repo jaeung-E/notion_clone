@@ -9,9 +9,6 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
     this.state = nextState;
     const { id, title, content, documents, isLoading } = this.state;
 
-    spinner.init();
-    editor.init();
-    childLink.init();
     editor.setState({ id, title, content });
     childLink.setState({ documents });
     spinner.setState({ isLoading });
@@ -43,8 +40,8 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
   });
 
   this.render = () => {
-    $target.innerHTML = `
-      <h1>해당 문서는 존재하지 않는 문서입니다!</h1>
-    `;
+    spinner.init();
+    editor.init();
+    childLink.init();
   };
 }

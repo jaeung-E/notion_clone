@@ -59,6 +59,7 @@ export default function App({ $target }) {
       const [, , documentId] = pathname.split("/");
       const { id, title, content, documents } = await getDocument(documentId);
 
+      documentEditPage.render();
       documentEditPage.setState({
         ...documentEditPage.state,
         id,
