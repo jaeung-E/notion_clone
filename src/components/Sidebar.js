@@ -1,8 +1,8 @@
 import DocumentList from "./DocumentList";
 import SidebarTitle from "./SideBarTitle";
-import { updateStorage } from "../utils/storage.js";
+import { getStorage, updateStorage } from "../utils/storage.js";
 import { push } from "../utils/router.js";
-import { OPEN_DOCUMENT_LIST } from "../constants/storageKey.js";
+import { OPEN_DOCUMENT_LIST, SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { createDocument } from "../api/createDocument.js";
 import { deleteDocument } from "../api/deleteDocument.js";
@@ -12,6 +12,7 @@ import Resizer from "./Resizer";
 export default function Sidebar({ $target, initialState }) {
   const $sidebar = document.createElement("div");
   $sidebar.classList.add("sidebar");
+  $sidebar.style.width = getStorage(SIDEBAR_WIDTH);
   $target.appendChild($sidebar);
 
   this.state = initialState;

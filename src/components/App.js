@@ -4,6 +4,8 @@ import { initRouter } from "../utils/router.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { updateDocument } from "../api/updateDocument.js";
 import Sidebar from "./SideBar.js";
+import { getStorage } from "../utils/storage.js";
+import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
 
 export default function App({ $target }) {
   const $appContainer = document.createElement("div");
@@ -22,6 +24,7 @@ export default function App({ $target }) {
   const $pageContainer = document.createElement("div");
   $pageWrapper.classList.add("page-wrapper");
   $pageContainer.classList.add("page-container");
+  $pageWrapper.style.marginLeft = getStorage(SIDEBAR_WIDTH);
   $pageWrapper.appendChild($pageContainer);
   $appContainer.appendChild($pageWrapper);
 

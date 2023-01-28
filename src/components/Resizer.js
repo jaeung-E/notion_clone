@@ -1,3 +1,6 @@
+import { SIDEBAR_WIDTH } from "../constants/storageKey";
+import { updateStorage } from "../utils/storage";
+
 export default function Resizer({ $target, $resizeElement }) {
   const $resizer = document.createElement("div");
   $resizer.classList.add("resizer");
@@ -15,6 +18,7 @@ export default function Resizer({ $target, $resizeElement }) {
   };
 
   const handleMouseUp = () => {
+    updateStorage(SIDEBAR_WIDTH, getWidth($resizeElement));
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
   };
