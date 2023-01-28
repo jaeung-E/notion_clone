@@ -1,4 +1,3 @@
-import { getDocument } from "../api/getDocument.js";
 import ChildLink from "../components/ChildLink.js";
 import Editor from "../components/Editor.js";
 import Spinner from "../components/Spinner.js";
@@ -6,37 +5,31 @@ import Spinner from "../components/Spinner.js";
 export default function DocumentEditPage({ $target, initialState, onEdit }) {
   this.state = initialState;
 
-  this.setState = async (nextState) => {
+  this.setState = (nextState) => {
     this.state = nextState;
+    const { id, title, content, documents, isLoading } = this.state;
 
-    try {
-      const { id, title, content, documents } = await getDocument(
-        this.state.documentId
-      );
-
-      spinner.init();
-      editor.init();
-      childLink.init();
-      editor.setState({ id, title, content });
-      childLink.setState(documents);
-    } catch (e) {
-      this.render();
-    }
+    spinner.init();
+    editor.init();
+    childLink.init();
+    editor.setState({ id, title, content });
+    childLink.setState({ documents });
+    spinner.setState({ isLoading });
   };
 
   const spinner = new Spinner({
     $target,
     initialState: {
-      isLoading: false,
+      isLoading: this.state.isLoading,
     },
   });
 
   const editor = new Editor({
     $target,
     initialState: {
-      id: "",
-      title: "",
-      content: "",
+      id: this.state.id,
+      title: this.state.title,
+      content: this.state.content,
     },
     onEdit,
     spinner,
@@ -45,7 +38,7 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
   const childLink = new ChildLink({
     $target,
     initialState: {
-      documents: [],
+      documents: this.state.documents,
     },
   });
 

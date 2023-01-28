@@ -6,6 +6,7 @@ import { updateDocument } from "../api/updateDocument.js";
 import Sidebar from "./SideBar.js";
 import { getStorage } from "../utils/storage.js";
 import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
+import { getDocument } from "../api/getDocument.js";
 
 export default function App({ $target }) {
   const $appContainer = document.createElement("div");
@@ -33,7 +34,11 @@ export default function App({ $target }) {
   const documentEditPage = new DocumentEditPage({
     $target: $pageContainer,
     initialState: {
-      documentId: 0,
+      id: "",
+      title: "",
+      content: "",
+      documents: [],
+      isLoading: false,
     },
     onEdit: async ({ id, title, content }) => {
       await updateDocument({ id, title, content });
@@ -52,7 +57,15 @@ export default function App({ $target }) {
       rootPage.render();
     } else if (pathname.indexOf("/documents/") === 0) {
       const [, , documentId] = pathname.split("/");
-      documentEditPage.setState({ documentId: documentId });
+      const { id, title, content, documents } = await getDocument(documentId);
+
+      documentEditPage.setState({
+        ...documentEditPage.state,
+        id,
+        title,
+        content,
+        documents,
+      });
       sidebar.setState({ ...sidebar.state, selectedId: documentId });
     }
   };

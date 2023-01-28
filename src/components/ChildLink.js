@@ -10,9 +10,10 @@ export default function ChildLink({ $target, initialState }) {
 
   this.render = () => {
     const $childList = document.querySelector(".child-list");
+    const { documents } = this.state;
 
     $childList.innerHTML = `
-      ${this.state
+      ${documents
         .map(({ id, title }) => {
           return `
           <div class='link-wrapper' data-id='${id}'>
