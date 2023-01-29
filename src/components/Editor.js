@@ -28,35 +28,7 @@ export default function Editor({ $target, initialState, onEdit, spinner }) {
     `;
 
     $editor.addEventListener("keyup", (e) => {
-      const { id } = this.state;
-      spinner.setState({ isLoading: true });
-
-      if (timer) {
-        clearTimeout(timer);
-      }
-
-      const isTitle = e.target
-        .closest("div")
-        .classList.contains("editor-title");
-      const isContent = e.target.classList.contains("editor-content");
-
-      if (isTitle) {
-        const $documentTitle = document.querySelector(
-          `li[data-id='${id}'] span`
-        );
-        this.setState({ ...this.state, title: e.target.value });
-        $documentTitle.textContent = this.state.title;
-      }
-
-      if (isContent) {
-        this.setState({ ...this.state, content: e.target.value });
-      }
-
-      timer = setTimeout(async () => {
-        const { id, title, content } = this.state;
-        onEdit({ id, title, content });
-        spinner.setState({ isLoading: false });
-      }, 500);
+      onEdit(e);
     });
 
     window.addEventListener("click", () => {

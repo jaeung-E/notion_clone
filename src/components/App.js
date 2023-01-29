@@ -9,6 +9,8 @@ import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocument } from "../api/getDocument.js";
 
 export default function App({ $target }) {
+  let timer = null;
+
   const $appContainer = document.createElement("div");
   $appContainer.classList.add("app-container");
   $target.appendChild($appContainer);
@@ -40,12 +42,53 @@ export default function App({ $target }) {
       documents: [],
       isLoading: false,
     },
-    onEdit: async ({ id, title, content }) => {
-      await updateDocument({ id, title, content });
-      sidebar.setState({
-        ...sidebar.state,
-        documents: await getDocumentList(),
+    onEdit: async (e) => {
+      const isTitle = e.target
+        .closest("div")
+        .classList.contains("editor-title");
+      const isContent = e.target.classList.contains("editor-content");
+      const { id } = documentEditPage.state;
+
+      if (isTitle) {
+        const $documentTitle = document.querySelector(
+          `li[data-id='${id}'] span`
+        );
+        documentEditPage.setState({
+          ...documentEditPage.state,
+          title: e.target.value,
+        });
+        $documentTitle.textContent = documentEditPage.state.title;
+      }
+
+      if (isContent) {
+        documentEditPage.setState({
+          ...documentEditPage.state,
+          content: e.target.value,
+        });
+      }
+
+      if (timer) {
+        clearTimeout(timer);
+      }
+
+      documentEditPage.setState({
+        ...documentEditPage.state,
+        isLoading: true,
       });
+
+      timer = setTimeout(async () => {
+        const { id, title, content } = documentEditPage.state;
+        await updateDocument({ id, title, content });
+
+        sidebar.setState({
+          ...sidebar.state,
+          documents: await getDocumentList(),
+        });
+        documentEditPage.setState({
+          ...documentEditPage.state,
+          isLoading: false,
+        });
+      }, 500);
     },
   });
 
