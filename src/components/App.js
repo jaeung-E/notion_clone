@@ -117,13 +117,20 @@ export default function App({ $target }) {
   });
 
   this.route = async () => {
-    const { pathname } = window.location;
+    const path = window.location.pathname
+      .split("/")
+      .filter((value) => value !== "");
     $pageContainer.innerHTML = "";
 
-    if (pathname === "/") {
+    const routes = {
+      home: path.length === 0,
+      editPage: path.length === 2 && path[0] === "documents",
+    };
+
+    if (routes.home) {
       rootPage.render();
-    } else if (pathname.indexOf("/documents/") === 0) {
-      const [, , documentId] = pathname.split("/");
+    } else if (routes.editPage) {
+      const documentId = path[1];
       const { id, title, content, documents } = await getDocument(documentId);
 
       documentEditPage.render();
