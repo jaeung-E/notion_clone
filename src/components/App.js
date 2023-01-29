@@ -7,6 +7,7 @@ import Sidebar from "./SideBar.js";
 import { getStorage } from "../utils/storage.js";
 import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocument } from "../api/getDocument.js";
+import NotFoundPage from "../pages/NotFoundPage.js";
 
 export default function App({ $target }) {
   let timer = null;
@@ -116,6 +117,8 @@ export default function App({ $target }) {
     },
   });
 
+  const notFoundPage = new NotFoundPage({ $target: $pageContainer });
+
   this.route = async () => {
     const path = window.location.pathname
       .split("/")
@@ -131,17 +134,24 @@ export default function App({ $target }) {
       rootPage.render();
     } else if (routes.editPage) {
       const documentId = path[1];
-      const { id, title, content, documents } = await getDocument(documentId);
 
-      documentEditPage.render();
-      documentEditPage.setState({
-        ...documentEditPage.state,
-        id,
-        title,
-        content,
-        documents,
-      });
-      sidebar.setState({ ...sidebar.state, selectedId: documentId });
+      try {
+        const { id, title, content, documents } = await getDocument(documentId);
+
+        documentEditPage.render();
+        documentEditPage.setState({
+          ...documentEditPage.state,
+          id,
+          title,
+          content,
+          documents,
+        });
+        sidebar.setState({ ...sidebar.state, selectedId: documentId });
+      } catch (error) {
+        notFoundPage.render();
+      }
+    } else {
+      notFoundPage.render();
     }
   };
 
