@@ -1,5 +1,4 @@
 import { OPEN_DOCUMENT_LIST } from "../constants/storageKey";
-import { push } from "../utils/router";
 import { getStorage } from "../utils/storage";
 
 export default function DocumentList({
@@ -8,6 +7,7 @@ export default function DocumentList({
   onOpen,
   onAddChild,
   onRemove,
+  onClickDocument,
 }) {
   const $list = document.createElement("div");
   $list.classList.add("document-list");
@@ -69,7 +69,7 @@ export default function DocumentList({
     const targetClassList = e.target.classList;
 
     if (e.target.className === "document-title") {
-      push(`/documents/${$root.dataset.id}`);
+      onClickDocument($root.dataset.id);
     }
 
     if (targetClassList.contains("open-button")) {

@@ -9,7 +9,7 @@ import { deleteDocument } from "../api/deleteDocument.js";
 import Button from "./Button";
 import Resizer from "./Resizer";
 
-export default function Sidebar({ $target, initialState }) {
+export default function Sidebar({ $target, initialState, onClickDocument }) {
   const $sidebar = document.createElement("div");
   $sidebar.classList.add("sidebar");
   $sidebar.style.width = getStorage(SIDEBAR_WIDTH);
@@ -54,6 +54,7 @@ export default function Sidebar({ $target, initialState }) {
       this.setState({ documents: await getDocumentList(), selectedId: 0 });
       push(`/`);
     },
+    onClickDocument,
   });
 
   const addRootButton = new Button({

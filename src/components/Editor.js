@@ -1,6 +1,4 @@
-export default function Editor({ $target, initialState, onEdit, spinner }) {
-  let timer = null;
-
+export default function Editor({ $target, initialState, onEdit }) {
   this.state = initialState;
 
   this.setState = (nextState) => {
@@ -29,21 +27,6 @@ export default function Editor({ $target, initialState, onEdit, spinner }) {
 
     $editor.addEventListener("keyup", (e) => {
       onEdit(e);
-    });
-
-    window.addEventListener("click", () => {
-      if (timer) {
-        const { id, title, content } = this.state;
-        const $documentTitle = document.querySelector(
-          `li[data-id='${id}'] span`
-        );
-        $documentTitle.textContent = this.state.title;
-
-        clearTimeout(timer);
-        timer = null;
-        onEdit({ id, title, content });
-        spinner.setState({ isLoading: false });
-      }
     });
   };
 }

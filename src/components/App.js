@@ -1,6 +1,6 @@
 import RootPage from "../pages/RootPage.js";
 import DocumentEditPage from "../pages/DocumentEditPage.js";
-import { initRouter } from "../utils/router.js";
+import { initRouter, push } from "../utils/router.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { updateDocument } from "../api/updateDocument.js";
 import Sidebar from "./SideBar.js";
@@ -20,6 +20,30 @@ export default function App({ $target }) {
     initialState: {
       documents: [],
       selectedId: 0,
+    },
+    onClickDocument: async (selectId) => {
+      if (timer) {
+        const { id, title, content } = documentEditPage.state;
+        const $documentTitle = document.querySelector(
+          `li[data-id='${id}'] span`
+        );
+        $documentTitle.textContent = documentEditPage.state.title;
+
+        await updateDocument({ id, title, content });
+        clearTimeout(timer);
+        timer = null;
+
+        sidebar.setState({
+          ...sidebar.state,
+          documents: await getDocumentList(),
+        });
+        documentEditPage.setState({
+          ...documentEditPage.state,
+          isLoading: false,
+        });
+      }
+
+      push(`/documents/${selectId}`);
     },
   });
 
