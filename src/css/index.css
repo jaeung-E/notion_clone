@@ -37,6 +37,10 @@ ul {
   background-color: rgba(245, 222, 179, 0.692);
 }
 
+.root-document {
+  margin: 0.25rem 0;
+}
+
 .document-title {
   cursor: pointer;
 }
@@ -227,4 +231,17 @@ ul {
   100% {
     transform: rotate(360deg);
   }
+}
+
+::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
 }
