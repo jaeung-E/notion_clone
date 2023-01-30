@@ -1,4 +1,3 @@
-import RootPage from "../pages/RootPage.js";
 import DocumentEditPage from "../pages/DocumentEditPage.js";
 import { initRouter, push } from "../utils/router.js";
 import { getDocumentList } from "../api/getDocumentList.js";
@@ -8,6 +7,7 @@ import { getStorage } from "../utils/storage.js";
 import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocument } from "../api/getDocument.js";
 import NotFoundPage from "../pages/NotFoundPage.js";
+import HomePage from "../pages/HomePage.js";
 
 export default function App({ $target }) {
   let timer = null;
@@ -56,7 +56,7 @@ export default function App({ $target }) {
   $pageWrapper.appendChild($pageContainer);
   $appContainer.appendChild($pageWrapper);
 
-  const rootPage = new RootPage({ $target: $pageContainer });
+  const homePage = new HomePage({ $target: $pageContainer });
 
   const documentEditPage = new DocumentEditPage({
     $target: $pageContainer,
@@ -131,7 +131,7 @@ export default function App({ $target }) {
     };
 
     if (routes.home) {
-      rootPage.render();
+      homePage.render();
     } else if (routes.editPage) {
       const documentId = path[1];
 
