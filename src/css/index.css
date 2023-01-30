@@ -104,13 +104,13 @@ ul {
   position: absolute;
   height: 100%;
   width: 0.25rem;
-  right: 0;
+  right: -0.15rem;
   cursor: col-resize;
-  background-color: rgba(224, 224, 224, 0.301);
+  z-index: -1;
 }
 
 .resizer:hover {
-  background-color: rgb(190, 190, 190);
+  background-color: rgba(190, 190, 190, 0.555);
 }
 
 .editor-container {
