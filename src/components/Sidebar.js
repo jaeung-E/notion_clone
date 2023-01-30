@@ -59,7 +59,10 @@ export default function Sidebar({ $target, initialState, onClickDocument }) {
 
   const addRootButton = new Button({
     $target: $sidebar,
-    content: "새 페이지",
+    content: `<div>
+      <img src='/assets/add.svg' />
+      <span>새 페이지</span>
+    </div>`,
     classes: ["add-root-button"],
     onClick: async () => {
       const { id } = await createDocument();
