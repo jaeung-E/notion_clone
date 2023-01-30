@@ -29,7 +29,6 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
       content: this.state.content,
     },
     onEdit,
-    spinner,
   });
 
   const childLink = new ChildLink({
