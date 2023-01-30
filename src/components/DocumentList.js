@@ -59,7 +59,9 @@ export default function DocumentList({
 
   this.render = () => {
     $list.innerHTML = `
-      ${parseHTML(this.state.documents)}
+      <nav>
+        ${parseHTML(this.state.documents)}
+      </nav>
     `;
   };
 

@@ -22,7 +22,9 @@ export default function Editor({ $target, initialState, onEdit }) {
       <div class="editor-title">
         <input type="text" placeholder="제목을 입력해 주세요"/>
       </div>
-      <textarea class="editor-content" placeholder="내용을 입력해 주세요"></textarea> 
+      <main>
+        <textarea class="editor-content" placeholder="내용을 입력해 주세요"></textarea> 
+      </main>
     `;
 
     $editor.addEventListener("keyup", (e) => {
