@@ -78,14 +78,13 @@ export default function Sidebar({ $target, initialState, onClickDocument }) {
     const $ul = $root.querySelector("ul");
 
     if ($ul.classList.contains("hidden")) {
-      e.target.innerHTML = "▼";
       updateStorage(OPEN_DOCUMENT_LIST, [...openList, $root.dataset.id]);
     } else {
-      e.target.innerHTML = "▶";
       openList.splice(openList.indexOf($root.dataset.id), 1);
       updateStorage(OPEN_DOCUMENT_LIST, openList);
     }
 
+    e.target.classList.toggle("open");
     $ul.classList.toggle("hidden");
   };
 }

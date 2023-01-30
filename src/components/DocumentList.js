@@ -31,16 +31,16 @@ export default function DocumentList({
 
         return `
         <li class="root-document" data-id="${id}">
-          <div class="button-container ${
-            id === Number(selectedId) ? "selected" : ""
+          <div class="button-container${
+            id === Number(selectedId) ? " selected" : ""
           }">
-            <button class="open-button button"type="button">${
-              isOpened ? "▼" : "▶"
-            }</button>
+            <button class="open-button small-button button${
+              isOpened ? " open" : ""
+            }"></button>
             <span class="document-title">${title}</span>
             <div class="button-box">
-              <button class="remove-button button "type="button">✖</button>
-              <button class="add-child-button button "type="button">✚</button>
+              <button class="remove-button small-button button"></button>
+              <button class="add-child-button small-button button"></button>
             </div>
           </div>
           ${

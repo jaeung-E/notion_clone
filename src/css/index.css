@@ -51,7 +51,7 @@ ul {
 }
 
 .button-container:hover .button-box {
-  display: block;
+  display: flex;
 }
 
 .button-box {
@@ -67,6 +67,28 @@ ul {
 
 .button:hover {
   background-color: rgba(187, 187, 187, 0.555);
+}
+
+.small-button {
+  width: 20px;
+  height: 20px;
+}
+
+.open {
+  transform: rotate(90deg);
+}
+
+.open-button {
+  transition: transform 0.5s;
+  background-image: url("/assets/arrow.svg");
+}
+
+.remove-button {
+  background-image: url("/assets/close.svg");
+}
+
+.add-child-button {
+  background-image: url("/assets/add.svg");
 }
 
 .add-root-button {
@@ -121,6 +143,7 @@ ul {
 
 .button-container {
   display: flex;
+  align-items: center;
 }
 
 .button-container:hover {
