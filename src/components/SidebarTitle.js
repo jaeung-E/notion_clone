@@ -7,7 +7,12 @@ export default function SidebarTitle({ $target }) {
 
   this.render = () => {
     $sidebarTitle.innerHTML = `
-    <a href="/"><div>Jaeung's Notion</div></a>
+      <a href="/">
+        <div class='title-container'>
+          <img src='/assets/Woong.png' />
+          <span>Jaeung's Notion</span>
+        </div>
+      </a>
     `;
   };
 

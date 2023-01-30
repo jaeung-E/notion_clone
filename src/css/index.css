@@ -26,6 +26,24 @@ ul {
   height: 100%;
 }
 
+.sidebar-title {
+  display: flex;
+  height: 4rem;
+  align-items: center;
+  border-bottom: 1px solid rgba(187, 187, 187, 0.555);
+  cursor: pointer;
+}
+
+.title-container {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+}
+
+.title-container span {
+  margin-left: 0.5rem;
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
