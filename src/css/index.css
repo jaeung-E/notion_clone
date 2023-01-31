@@ -157,7 +157,7 @@ ul {
 }
 
 .resizer:hover {
-  background-color: rgba(190, 190, 190, 0.555);
+  background-color: #2b59f0bd;
 }
 
 .editor-container {
