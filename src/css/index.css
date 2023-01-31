@@ -147,6 +147,11 @@ ul {
   margin-left: 0.5rem;
 }
 
+.add-root-button:hover,
+.sidebar-title:hover {
+  background-color: #5c5c5c57;
+}
+
 .resizer {
   position: absolute;
   height: 100%;
