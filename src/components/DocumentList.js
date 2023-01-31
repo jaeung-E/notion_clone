@@ -67,23 +67,22 @@ export default function DocumentList({
 
   $list.addEventListener("click", (e) => {
     const $root = e.target.closest(".root-document");
-    const openList = getStorage(OPEN_DOCUMENT_LIST, []);
     const targetClassList = e.target.classList;
 
-    if (e.target.className === "document-title") {
+    if (targetClassList.contains("document-title")) {
       onClickDocument($root.dataset.id);
     }
 
     if (targetClassList.contains("open-button")) {
-      onOpen({ $root, openList, e });
+      onOpen($root);
     }
 
     if (targetClassList.contains("add-child-button")) {
-      onAddChild({ $root, openList, e });
+      onAddChild($root);
     }
 
     if (targetClassList.contains("remove-button")) {
-      onRemove({ $root, openList });
+      onRemove($root);
     }
   });
 
