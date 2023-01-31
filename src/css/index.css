@@ -1,3 +1,8 @@
+body {
+  font-family: "Noto Sans Kr", "sans-serif";
+  font-size: 14px;
+}
+
 ul {
   padding-left: 20px;
 }
@@ -57,10 +62,12 @@ ul {
 }
 
 .root-document {
-  margin: 0.25rem 0;
+  margin: 0.5rem 0;
 }
 
 .document-title {
+  margin-left: 0.25rem;
+  letter-spacing: 0.05rem;
   cursor: pointer;
 }
 
