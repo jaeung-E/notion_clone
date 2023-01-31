@@ -1,6 +1,6 @@
 import { push } from "../utils/router";
 
-export default function SidebarTitle({ $target }) {
+export default function SidebarTitle({ $target, onClick }) {
   const $sidebarTitle = document.createElement("div");
   $sidebarTitle.classList.add("sidebar-title");
   $target.appendChild($sidebarTitle);
@@ -20,6 +20,6 @@ export default function SidebarTitle({ $target }) {
 
   $sidebarTitle.addEventListener("click", (e) => {
     e.preventDefault();
-    push("/");
+    onClick();
   });
 }

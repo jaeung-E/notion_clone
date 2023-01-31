@@ -27,7 +27,16 @@ export default function Sidebar({
     documentList.setState({ ...this.state });
   };
 
-  const sidebarTitle = new SidebarTitle({ $target: $sidebar });
+  const sidebarTitle = new SidebarTitle({
+    $target: $sidebar,
+    onClick: () => {
+      documentList.setState({
+        ...documentList.state,
+        selectedId: 0,
+      });
+      push("/");
+    },
+  });
 
   const documentList = new DocumentList({
     $target: $sidebar,
