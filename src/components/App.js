@@ -106,6 +106,7 @@ export default function App({ $target }) {
         const { id, title, content } = documentEditPage.state;
         await updateDocument({ id, title, content });
 
+        timer = null;
         sidebar.setState({
           ...sidebar.state,
           documents: await getDocumentList(),
