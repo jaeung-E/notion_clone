@@ -1,4 +1,7 @@
-body {
+body,
+button,
+input,
+textarea {
   font-family: "Noto Sans Kr", "sans-serif";
   font-size: 14px;
 }
@@ -167,14 +170,7 @@ ul {
 .editor-title input {
   outline: none;
   border: none;
-  font-size: 20px;
   width: 100%;
-}
-
-.editor-content {
-  min-height: 35rem;
-  resize: none;
-  margin-top: 20px;
 }
 
 .editor-title {
@@ -187,6 +183,15 @@ ul {
   position: absolute;
   bottom: 0;
   padding-bottom: 10px;
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+.editor-content {
+  min-height: 35rem;
+  margin-top: 1.5rem;
+  font-size: 1.25rem;
+  resize: none;
 }
 
 .button-container {
