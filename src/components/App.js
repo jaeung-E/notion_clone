@@ -68,9 +68,7 @@ export default function App({ $target }) {
       isLoading: false,
     },
     onEdit: async (e) => {
-      const isTitle = e.target
-        .closest("div")
-        .classList.contains("editor-title");
+      const isTitle = e.target.classList.contains("editor-title");
       const isContent = e.target.classList.contains("editor-content");
       const { id } = documentEditPage.state;
 
@@ -78,9 +76,10 @@ export default function App({ $target }) {
         const $documentTitle = document.querySelector(
           `li[data-id='${id}'] span`
         );
+
         documentEditPage.setState({
           ...documentEditPage.state,
-          title: e.target.value,
+          title: e.target.textContent,
         });
         $documentTitle.textContent = documentEditPage.state.title;
       }

@@ -9,7 +9,7 @@ export default function Editor({ $target, initialState, onEdit }) {
   this.render = () => {
     const { title, content } = this.state;
 
-    document.querySelector(".editor-title input").value = title;
+    document.querySelector(".editor-title").textContent = title;
     document.querySelector(".editor-content").value = content;
   };
 
@@ -19,8 +19,7 @@ export default function Editor({ $target, initialState, onEdit }) {
     $target.appendChild($editor);
 
     $editor.innerHTML = `
-      <div class="editor-title">
-        <input type="text" placeholder="제목을 입력해 주세요"/>
+      <div class="editor-title" contentEditable="true" placeholder="제목을 입력해 주세요">
       </div>
       <main>
         <textarea class="editor-content" placeholder="내용을 입력해 주세요"></textarea> 
@@ -29,6 +28,11 @@ export default function Editor({ $target, initialState, onEdit }) {
 
     $editor.addEventListener("keyup", (e) => {
       onEdit(e);
+    });
+
+    $editor.addEventListener("keydown", (e) => {
+      const isTitle = e.target.classList.contains("editor-title");
+      if (isTitle && e.key === "Enter") e.preventDefault();
     });
   };
 }
