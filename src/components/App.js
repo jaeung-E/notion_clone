@@ -3,11 +3,12 @@ import { initRouter, push } from "../utils/router.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { updateDocument } from "../api/updateDocument.js";
 import Sidebar from "./SideBar.js";
-import { getStorage, updateStorage } from "../utils/storage.js";
-import { OPEN_DOCUMENT_LIST, SIDEBAR_WIDTH } from "../constants/storageKey.js";
+import { getStorage } from "../utils/storage.js";
+import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocument } from "../api/getDocument.js";
 import NotFoundPage from "../pages/NotFoundPage.js";
 import HomePage from "../pages/HomePage.js";
+import { handleOpen } from "../utils/events.js";
 
 export default function App({ $target }) {
   let timer = null;
@@ -94,9 +95,7 @@ export default function App({ $target }) {
         });
       }
 
-      if (timer) {
-        clearTimeout(timer);
-      }
+      if (timer) clearTimeout(timer);
 
       documentEditPage.setState({
         ...documentEditPage.state,
@@ -164,22 +163,6 @@ export default function App({ $target }) {
     } else {
       notFoundPage.render();
     }
-  };
-
-  const handleOpen = ($root) => {
-    const $openButton = $root.querySelector(".open-button");
-    const $ul = $root.querySelector("ul");
-    const openList = getStorage(OPEN_DOCUMENT_LIST, []);
-
-    if ($ul.classList.contains("hidden")) {
-      updateStorage(OPEN_DOCUMENT_LIST, [...openList, $root.dataset.id]);
-    } else {
-      openList.splice(openList.indexOf($root.dataset.id), 1);
-      updateStorage(OPEN_DOCUMENT_LIST, openList);
-    }
-
-    $openButton.classList.toggle("open");
-    $ul.classList.toggle("hidden");
   };
 
   this.route();
