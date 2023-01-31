@@ -26,7 +26,7 @@ export default function Editor({ $target, initialState, onEdit }) {
       </main>
     `;
 
-    $editor.addEventListener("keyup", (e) => {
+    $editor.addEventListener("input", (e) => {
       onEdit(e);
     });
 
