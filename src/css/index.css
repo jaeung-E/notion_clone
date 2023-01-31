@@ -89,13 +89,19 @@ ul {
 
 .button {
   background-color: rgba(245, 222, 179, 0);
+  background-size: cover;
   border: none;
   cursor: pointer;
 }
 
 .small-button {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
+  opacity: 0.4;
+}
+
+.small-button:hover {
+  opacity: 1;
 }
 
 .open {
