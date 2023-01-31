@@ -3,8 +3,8 @@ import { initRouter, push } from "../utils/router.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { updateDocument } from "../api/updateDocument.js";
 import Sidebar from "./SideBar.js";
-import { getStorage } from "../utils/storage.js";
-import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
+import { getStorage, updateStorage } from "../utils/storage.js";
+import { OPEN_DOCUMENT_LIST, SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocument } from "../api/getDocument.js";
 import NotFoundPage from "../pages/NotFoundPage.js";
 import HomePage from "../pages/HomePage.js";
@@ -45,6 +45,9 @@ export default function App({ $target }) {
       }
 
       push(`/documents/${selectId}`);
+    },
+    onOpen: ($root) => {
+      handleOpen($root);
     },
   });
 
@@ -114,6 +117,15 @@ export default function App({ $target }) {
         });
       }, 500);
     },
+    onClick: (id) => {
+      const $root = document.querySelector(
+        `.root-document[data-id='${documentEditPage.state.id}']`
+      );
+      const $ul = $root.querySelector("ul");
+
+      if ($ul.classList.contains("hidden")) handleOpen($root);
+      push(`/documents/${id}`);
+    },
   });
 
   const notFoundPage = new NotFoundPage({ $target: $pageContainer });
@@ -152,6 +164,22 @@ export default function App({ $target }) {
     } else {
       notFoundPage.render();
     }
+  };
+
+  const handleOpen = ($root) => {
+    const $openButton = $root.querySelector(".open-button");
+    const $ul = $root.querySelector("ul");
+    const openList = getStorage(OPEN_DOCUMENT_LIST, []);
+
+    if ($ul.classList.contains("hidden")) {
+      updateStorage(OPEN_DOCUMENT_LIST, [...openList, $root.dataset.id]);
+    } else {
+      openList.splice(openList.indexOf($root.dataset.id), 1);
+      updateStorage(OPEN_DOCUMENT_LIST, openList);
+    }
+
+    $openButton.classList.toggle("open");
+    $ul.classList.toggle("hidden");
   };
 
   this.route();

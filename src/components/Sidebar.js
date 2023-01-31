@@ -9,7 +9,12 @@ import { deleteDocument } from "../api/deleteDocument.js";
 import Button from "./Button";
 import Resizer from "./Resizer";
 
-export default function Sidebar({ $target, initialState, onClickDocument }) {
+export default function Sidebar({
+  $target,
+  initialState,
+  onClickDocument,
+  onOpen,
+}) {
   const $sidebar = document.createElement("div");
   $sidebar.classList.add("sidebar");
   $sidebar.style.width = getStorage(SIDEBAR_WIDTH);
@@ -30,15 +35,13 @@ export default function Sidebar({ $target, initialState, onClickDocument }) {
       documents: this.state.documents,
       selectedId: this.state.selectedId,
     },
-    onOpen: ($root) => {
-      handleOpen($root);
-    },
+    onOpen,
     onAddChild: async ($root) => {
       const { id } = await createDocument($root.dataset.id);
       const $ul = $root.querySelector("ul");
 
       this.setState({ documents: await getDocumentList(), selectedId: id });
-      if ($ul.classList.contains("hidden")) handleOpen($root);
+      if ($ul.classList.contains("hidden")) onOpen($root);
       push(`/documents/${id}`);
     },
     onRemove: async ($root) => {
@@ -78,20 +81,4 @@ export default function Sidebar({ $target, initialState, onClickDocument }) {
     $target: $sidebar,
     $resizeElement: $sidebar,
   });
-
-  const handleOpen = ($root) => {
-    const $openButton = $root.querySelector(".open-button");
-    const $ul = $root.querySelector("ul");
-    const openList = getStorage(OPEN_DOCUMENT_LIST, []);
-
-    if ($ul.classList.contains("hidden")) {
-      updateStorage(OPEN_DOCUMENT_LIST, [...openList, $root.dataset.id]);
-    } else {
-      openList.splice(openList.indexOf($root.dataset.id), 1);
-      updateStorage(OPEN_DOCUMENT_LIST, openList);
-    }
-
-    $openButton.classList.toggle("open");
-    $ul.classList.toggle("hidden");
-  };
 }

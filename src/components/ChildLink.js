@@ -1,6 +1,4 @@
-import { push } from "../utils/router";
-
-export default function ChildLink({ $target, initialState }) {
+export default function ChildLink({ $target, initialState, onClick }) {
   this.state = initialState;
 
   this.setState = (nextState) => {
@@ -35,9 +33,9 @@ export default function ChildLink({ $target, initialState }) {
     $target.appendChild($childList);
 
     $childList.addEventListener("click", (e) => {
-      e.preventDefault();
       const { id } = e.target.closest(".link-wrapper").dataset;
-      push(`/documents/${id}`);
+      e.preventDefault();
+      onClick(id);
     });
   };
 }

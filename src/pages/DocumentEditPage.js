@@ -2,7 +2,12 @@ import ChildLink from "../components/ChildLink.js";
 import Editor from "../components/Editor.js";
 import Spinner from "../components/Spinner.js";
 
-export default function DocumentEditPage({ $target, initialState, onEdit }) {
+export default function DocumentEditPage({
+  $target,
+  initialState,
+  onEdit,
+  onClick,
+}) {
   this.state = initialState;
 
   this.setState = (nextState) => {
@@ -36,6 +41,7 @@ export default function DocumentEditPage({ $target, initialState, onEdit }) {
     initialState: {
       documents: this.state.documents,
     },
+    onClick,
   });
 
   this.render = () => {
