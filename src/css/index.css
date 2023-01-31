@@ -23,7 +23,7 @@ ul {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-left: 13rem;
+  padding-left: 13rem;
 }
 
 .page-container {

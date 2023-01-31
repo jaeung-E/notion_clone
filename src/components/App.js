@@ -56,7 +56,7 @@ export default function App({ $target }) {
   const $pageContainer = document.createElement("div");
   $pageWrapper.classList.add("page-wrapper");
   $pageContainer.classList.add("page-container");
-  $pageWrapper.style.marginLeft = getStorage(SIDEBAR_WIDTH);
+  $pageWrapper.style.paddingLeft = getStorage(SIDEBAR_WIDTH);
   $pageWrapper.appendChild($pageContainer);
   $appContainer.appendChild($pageWrapper);
 
