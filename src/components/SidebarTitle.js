@@ -7,7 +7,7 @@ export default function SidebarTitle({ $target, onClick }) {
     $sidebarTitle.innerHTML = `
       <a href="/">
         <div class='title-container'>
-          <img src='./src/assets/Woong.png' />
+          <div class='title-image'></div>
           <span>Jaeung's Notion</span>
         </div>
       </a>

@@ -104,6 +104,13 @@ ul {
   cursor: pointer;
 }
 
+.title-image {
+  width: 32px;
+  height: 32px;
+  background-image: url("../assets/Woong.png");
+  background-size: cover;
+}
+
 .document-list {
   flex: 1 1 0;
   padding: 0.5rem;
@@ -176,18 +183,26 @@ ul {
 
 .add-root-button {
   height: 3rem;
+  padding-left: 1rem;
   border-top: 1px solid rgba(187, 187, 187, 0.555);
 }
 
 .add-root-button div {
   display: flex;
-  margin-left: 1rem;
+  align-items: center;
   font-weight: 700;
 }
 
 .add-root-button span {
   color: #2b5af0;
   margin-left: 0.5rem;
+}
+
+.add-image {
+  width: 20px;
+  height: 20px;
+  background-image: url("../assets/add.svg");
+  background-size: cover;
 }
 
 .add-root-button:hover,

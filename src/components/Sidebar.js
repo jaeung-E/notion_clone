@@ -77,7 +77,7 @@ export default function Sidebar({
   const addRootButton = new Button({
     $target: $sidebar,
     content: `<div>
-      <img src='./src/assets/add.svg' />
+      <div class='add-image'></div>
       <span>새 페이지</span>
     </div>`,
     classes: ["add-root-button"],
