@@ -163,15 +163,15 @@ ul {
 
 .open-button {
   transition: transform 0.5s;
-  background-image: url("/assets/arrow.svg");
+  background-image: url("../assets/arrow.svg");
 }
 
 .remove-button {
-  background-image: url("/assets/close.svg");
+  background-image: url("../assets/close.svg");
 }
 
 .add-child-button {
-  background-image: url("/assets/add.svg");
+  background-image: url("../assets/add.svg");
 }
 
 .add-root-button {

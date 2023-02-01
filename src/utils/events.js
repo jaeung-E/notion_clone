@@ -1,5 +1,5 @@
-import { OPEN_DOCUMENT_LIST } from "../constants/storageKey";
-import { getStorage, updateStorage } from "./storage";
+import { OPEN_DOCUMENT_LIST } from "../constants/storageKey.js";
+import { getStorage, updateStorage } from "./storage.js";
 
 export const handleOpen = ($root) => {
   const $openButton = $root.querySelector(".open-button");

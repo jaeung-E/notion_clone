@@ -1,5 +1,5 @@
-import { SIDEBAR_WIDTH } from "../constants/storageKey";
-import { updateStorage } from "../utils/storage";
+import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
+import { updateStorage } from "../utils/storage.js";
 
 export default function Resizer({ $target, $resizeElement }) {
   const $resizer = document.createElement("div");

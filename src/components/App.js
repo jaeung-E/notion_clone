@@ -2,7 +2,7 @@ import DocumentEditPage from "../pages/DocumentEditPage.js";
 import { initRouter, push } from "../utils/router.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { updateDocument } from "../api/updateDocument.js";
-import Sidebar from "./SideBar.js";
+import Sidebar from "./Sidebar.js";
 import { getStorage } from "../utils/storage.js";
 import { SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocument } from "../api/getDocument.js";
@@ -31,7 +31,7 @@ export default function App({ $target }) {
         );
         $documentTitle.textContent = documentEditPage.state.title;
 
-        await updateDocument({ id, title, content });
+        await updateDocument(id, title, content);
         clearTimeout(timer);
         timer = null;
 
@@ -104,7 +104,7 @@ export default function App({ $target }) {
 
       timer = setTimeout(async () => {
         const { id, title, content } = documentEditPage.state;
-        await updateDocument({ id, title, content });
+        await updateDocument(id, title, content);
 
         timer = null;
         sidebar.setState({

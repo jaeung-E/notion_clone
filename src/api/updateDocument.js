@@ -1,6 +1,6 @@
 import { request } from "../utils/request.js";
 
-export const updateDocument = async ({ id, title, content }) => {
+export const updateDocument = async (id, title, content) => {
   await request(`/documents/${id}`, {
     method: "PUT",
     body: JSON.stringify({

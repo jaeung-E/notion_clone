@@ -1,5 +1,5 @@
-import { OPEN_DOCUMENT_LIST } from "../constants/storageKey";
-import { getStorage } from "../utils/storage";
+import { OPEN_DOCUMENT_LIST } from "../constants/storageKey.js";
+import { getStorage } from "../utils/storage.js";
 
 export default function DocumentList({
   $target,

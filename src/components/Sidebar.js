@@ -1,13 +1,13 @@
-import DocumentList from "./DocumentList";
-import SidebarTitle from "./SideBarTitle";
+import DocumentList from "./DocumentList.js";
+import SidebarTitle from "./SidebarTitle.js";
 import { getStorage, updateStorage } from "../utils/storage.js";
 import { push } from "../utils/router.js";
 import { OPEN_DOCUMENT_LIST, SIDEBAR_WIDTH } from "../constants/storageKey.js";
 import { getDocumentList } from "../api/getDocumentList.js";
 import { createDocument } from "../api/createDocument.js";
 import { deleteDocument } from "../api/deleteDocument.js";
-import Button from "./Button";
-import Resizer from "./Resizer";
+import Button from "./Button.js";
+import Resizer from "./Resizer.js";
 
 export default function Sidebar({
   $target,
@@ -77,7 +77,7 @@ export default function Sidebar({
   const addRootButton = new Button({
     $target: $sidebar,
     content: `<div>
-      <img src='/assets/add.svg' />
+      <img src='./src/assets/add.svg' />
       <span>새 페이지</span>
     </div>`,
     classes: ["add-root-button"],
