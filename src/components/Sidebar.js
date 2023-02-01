@@ -11,7 +11,10 @@ import Resizer from "./Resizer";
 
 export default function Sidebar({
   $target,
-  initialState,
+  initialState = {
+    documents: [],
+    selectedId: 0,
+  },
   onClickDocument,
   onOpen,
 }) {

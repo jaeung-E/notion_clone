@@ -1,4 +1,11 @@
-export default function Editor({ $target, initialState, onEdit }) {
+export default function Editor({
+  $target,
+  initialState = {
+    title: "",
+    content: "",
+  },
+  onEdit,
+}) {
   this.state = initialState;
 
   this.setState = (nextState) => {

@@ -1,5 +1,3 @@
-import { push } from "../utils/router";
-
 export default function SidebarTitle({ $target, onClick }) {
   const $sidebarTitle = document.createElement("div");
   $sidebarTitle.classList.add("sidebar-title");

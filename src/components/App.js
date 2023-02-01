@@ -65,7 +65,7 @@ export default function App({ $target }) {
   const documentEditPage = new DocumentEditPage({
     $target: $pageContainer,
     initialState: {
-      id: "",
+      id: 0,
       title: "",
       content: "",
       documents: [],

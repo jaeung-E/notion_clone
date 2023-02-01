@@ -1,4 +1,9 @@
-export default function Spinner({ $target, initialState }) {
+export default function Spinner({
+  $target,
+  initialState = {
+    isLoading: false,
+  },
+}) {
   this.state = initialState;
 
   this.setState = (nextState) => {

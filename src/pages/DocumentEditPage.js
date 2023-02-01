@@ -4,7 +4,12 @@ import Spinner from "../components/Spinner.js";
 
 export default function DocumentEditPage({
   $target,
-  initialState,
+  initialState = {
+    title: "",
+    content: "",
+    documents: [],
+    isLoading: false,
+  },
   onEdit,
   onClick,
 }) {
@@ -12,9 +17,9 @@ export default function DocumentEditPage({
 
   this.setState = (nextState) => {
     this.state = nextState;
-    const { id, title, content, documents, isLoading } = this.state;
+    const { title, content, documents, isLoading } = this.state;
 
-    editor.setState({ id, title, content });
+    editor.setState({ title, content });
     childLink.setState({ documents });
     spinner.setState({ isLoading });
   };
@@ -29,7 +34,6 @@ export default function DocumentEditPage({
   const editor = new Editor({
     $target,
     initialState: {
-      id: this.state.id,
       title: this.state.title,
       content: this.state.content,
     },

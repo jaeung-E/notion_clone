@@ -3,7 +3,10 @@ import { getStorage } from "../utils/storage";
 
 export default function DocumentList({
   $target,
-  initialState,
+  initialState = {
+    documents: [],
+    selectedId: 0,
+  },
   onOpen,
   onAddChild,
   onRemove,

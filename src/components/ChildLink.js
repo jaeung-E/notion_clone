@@ -1,4 +1,10 @@
-export default function ChildLink({ $target, initialState, onClick }) {
+export default function ChildLink({
+  $target,
+  initialState = {
+    documents: [],
+  },
+  onClick,
+}) {
   this.state = initialState;
 
   this.setState = (nextState) => {
