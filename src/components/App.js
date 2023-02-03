@@ -115,7 +115,7 @@ export default function App({ $target }) {
           ...documentEditPage.state,
           isLoading: false,
         });
-      }, 500);
+      }, 1000);
     },
     onClick: (id) => {
       const $root = document.querySelector(
